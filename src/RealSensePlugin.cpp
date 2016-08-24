@@ -14,10 +14,11 @@
 // limitations under the License.
 */
 
-#include "RealSensePlugin.hh"
+#include "realsense_gazebo_plugin/RealSensePlugin.h"
 #include <gazebo/physics/physics.hh>
 #include <gazebo/rendering/DepthCamera.hh>
 #include <gazebo/sensors/sensors.hh>
+#include <ros/ros.h>
 
 #define DEPTH_PUB_FREQ_HZ 60
 #define COLOR_PUB_FREQ_HZ 60

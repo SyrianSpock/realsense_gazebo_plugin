@@ -4,27 +4,19 @@
 
 Build the plugin
 ```bash
-mkdir -p plugins/build
-pushd plugins/build
-cmake ..
-make
-popd
-```
-
-Ensure that the Gazebo model and plugin paths are setup correctly
-```bash
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/.gazebo/models
-export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:`pwd`/plugins/build
+catkin build realsense_gazebo_plugin
 ```
 
 Test it by running
 ```bash
-gazebo worlds/realsense.world
+roslaunch realsense_gazebo_plugin realsense.launch
 ```
 
 ## Dependencies
 
-This requires Gazebo 6 or higher.
+This requires Gazebo 6 or higher and catkin tools for building.
+
+The package has been tested on ROS indigo on Ubuntu 14.04 with Gazebo 7.
 
 ## Acknowledgement
 

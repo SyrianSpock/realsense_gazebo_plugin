@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find realsense_gazebo_plugin)/worlds/realsense.world"/>
+  </include>
+</launch>
