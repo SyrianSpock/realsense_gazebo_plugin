@@ -25,6 +25,7 @@
 #include <gazebo/sensors/sensors.hh>
 #include <sdf/sdf.hh>
 #include <string>
+#include <memory>
 
 namespace gazebo
 {
@@ -32,7 +33,7 @@ namespace gazebo
   struct RealSensePluginPrivate;
 
   /// \brief A plugin that simulates Real Sense camera streams.
-  class GAZEBO_VISIBLE RealSensePlugin : public ModelPlugin
+  class RealSensePlugin : public ModelPlugin
   {
     /// \brief Constructor.
     public:
@@ -63,7 +64,8 @@ namespace gazebo
                             const transport::PublisherPtr pub) const;
 
     /// \brief Private data pointer.
-    private: std::unique_ptr<RealSensePluginPrivate> dataPtr;
+    private:
+    std::unique_ptr<RealSensePluginPrivate> dataPtr;
   };
 }
 #endif

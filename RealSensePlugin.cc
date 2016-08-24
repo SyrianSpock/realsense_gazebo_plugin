@@ -118,8 +118,7 @@ namespace gazebo
 }
 
 /////////////////////////////////////////////////
-RealSensePlugin::RealSensePlugin()
-    : dataPtr(new RealSensePluginPrivate)
+RealSensePlugin::RealSensePlugin() : dataPtr(new RealSensePluginPrivate)
 {
   this->dataPtr->depthCam = nullptr;
   this->dataPtr->ired1Cam = nullptr;
