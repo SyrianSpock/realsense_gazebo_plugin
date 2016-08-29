@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<sdf version="1.6">
+<sdf version="1.4">
   <model name="realsense_camera">
-    <plugin name="realsense_plugin" filename="libRealSensePlugin.so"/>
+    <plugin name="realsense_plugin" filename="librealsense_gazebo_plugin.so"/>
     <pose frame="">0 0 0.015 0 0 0</pose>
     <link name="link">
       <inertial>
@@ -14,7 +14,7 @@
           <iyz>0</iyz>
           <izz>8.931e-05</izz>
         </inertia>
-        <pose frame=''>0 0 0 0 -0 0</pose>
+        <pose frame=''>0 0 0 0 0 0</pose>
       </inertial>
       <self_collide>0</self_collide>
       <enable_wind>0</enable_wind>

@@ -24,6 +24,9 @@
 #include <gazebo/rendering/DepthCamera.hh>
 #include <gazebo/sensors/sensors.hh>
 #include <sdf/sdf.hh>
+
+#include <ros/ros.h>
+
 #include <string>
 #include <memory>
 

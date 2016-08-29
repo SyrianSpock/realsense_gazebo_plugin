@@ -18,7 +18,6 @@
 #include <gazebo/physics/physics.hh>
 #include <gazebo/rendering/DepthCamera.hh>
 #include <gazebo/sensors/sensors.hh>
-#include <ros/ros.h>
 
 #define DEPTH_PUB_FREQ_HZ 60
 #define COLOR_PUB_FREQ_HZ 60
@@ -41,11 +40,11 @@
 
 using namespace gazebo;
 
-// Register the plugin
-GZ_REGISTER_MODEL_PLUGIN(RealSensePlugin)
-
 namespace gazebo
 {
+  // Register the plugin
+  GZ_REGISTER_MODEL_PLUGIN(RealSensePlugin)
+
   struct RealSensePluginPrivate
   {
     /// \brief Pointer to the model containing the plugin.
@@ -137,7 +136,7 @@ void RealSensePlugin::Load(physics::ModelPtr _model, sdf::ElementPtr /*_sdf*/)
 {
   // Output the name of the model
   std::cout << std::endl
-            << "RealSensePlugin: The rs_camera plugin is attach to model "
+            << "RealSensePlugin: The realsense_camera plugin is attach to model "
             << _model->GetName() << std::endl;
 
   // Store a pointer to the this model
