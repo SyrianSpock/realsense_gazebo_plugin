@@ -5,6 +5,9 @@ project(realsense_gazebo_plugin)
 find_package(catkin REQUIRED COMPONENTS
     roscpp
     gazebo_ros
+    image_transport
+    camera_info_manager
+    sensor_msgs
 )
 find_package(Boost REQUIRED COMPONENTS thread)
 find_package(gazebo REQUIRED)
@@ -28,6 +31,7 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 add_library(
     ${PROJECT_NAME}
     src/RealSensePlugin.cpp
+    src/gazebo_ros_realsense.cpp
 )
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 

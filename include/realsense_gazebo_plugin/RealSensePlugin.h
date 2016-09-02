@@ -30,6 +30,12 @@
 
 namespace gazebo
 {
+
+  #define DEPTH_CAMERA_NAME "depth"
+  #define COLOR_CAMERA_NAME "color"
+  #define IRED1_CAMERA_NAME "ired1"
+  #define IRED2_CAMERA_NAME "ired2"
+
   /// \brief A plugin that simulates Real Sense camera streams.
   class RealSensePlugin : public ModelPlugin
   {

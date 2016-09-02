@@ -24,11 +24,6 @@
 #define IRED1_PUB_FREQ_HZ 60
 #define IRED2_PUB_FREQ_HZ 60
 
-#define DEPTH_CAMERA_NAME "depth"
-#define COLOR_CAMERA_NAME "color"
-#define IRED1_CAMERA_NAME "ired1"
-#define IRED2_CAMERA_NAME "ired2"
-
 #define DEPTH_CAMERA_TOPIC "depth"
 #define COLOR_CAMERA_TOPIC "color"
 #define IRED1_CAMERA_TOPIC "infrared"
@@ -39,9 +34,6 @@
 #define DEPTH_SCALE_M 0.001
 
 using namespace gazebo;
-
-// Register the plugin
-GZ_REGISTER_MODEL_PLUGIN(RealSensePlugin)
 
 /////////////////////////////////////////////////
 RealSensePlugin::RealSensePlugin()
