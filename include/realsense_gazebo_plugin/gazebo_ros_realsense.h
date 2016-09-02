@@ -36,30 +36,13 @@ namespace gazebo
     public: virtual void OnNewFrame(const rendering::CameraPtr cam,
                                     const transport::PublisherPtr pub);
 
-    // /// \brief Put camera data to the ROS topic
-    // protected:
-    // void PutCameraData(const unsigned char *_src);
-    // protected:
-    // void PutCameraData(const unsigned char *_src,
-    //                    common::Time &last_update_time);
-
-    // /// \brief Publish CameraInfo to the ROS topic
-    // protected:
-    // void PublishCameraInfo(ros::Publisher camera_info_publisher);
-    // protected:
-    // void PublishCameraInfo(common::Time &last_update_time);
-    // protected:
-    // void PublishCameraInfo();
-
     protected: boost::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_;
-
-    protected: common::Time last_update_time_;
 
     /// \brief A pointer to the ROS node.
     ///  A node will be instantiated if it does not exist.
     protected: ros::NodeHandle* rosnode_;
-    protected: image_transport::Publisher image_pub_;
     private: image_transport::ImageTransport* itnode_;
+    protected: image_transport::Publisher color_pub_, ir1_pub_, ir2_pub_;
 
     /// \brief ROS image messages
     protected: sensor_msgs::Image image_msg_;
