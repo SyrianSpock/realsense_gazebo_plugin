@@ -25,5 +25,16 @@ include_directories(
 )
 link_directories(${GAZEBO_LIBRARY_DIRS})
 
-add_library(${PROJECT_NAME} src/RealSensePlugin.cpp)
+add_library(
+    ${PROJECT_NAME}
+    src/RealSensePlugin.cpp
+)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+
+add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
+install(
+    TARGETS
+        ${PROJECT_NAME}
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)

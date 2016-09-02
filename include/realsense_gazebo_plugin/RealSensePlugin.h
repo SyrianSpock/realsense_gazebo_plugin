@@ -25,50 +25,86 @@
 #include <gazebo/sensors/sensors.hh>
 #include <sdf/sdf.hh>
 
-#include <ros/ros.h>
-
 #include <string>
 #include <memory>
 
 namespace gazebo
 {
-  // Forward declare private data class
-  struct RealSensePluginPrivate;
-
   /// \brief A plugin that simulates Real Sense camera streams.
   class RealSensePlugin : public ModelPlugin
   {
     /// \brief Constructor.
-    public:
-    RealSensePlugin();
+    public: RealSensePlugin();
 
     /// \brief Destructor.
-    public:
-    ~RealSensePlugin();
+    public: ~RealSensePlugin();
 
     // Documentation Inherited.
-    public:
-    virtual void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf);
+    public: virtual void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf);
 
     /// \brief Callback for the World Update event.
-    public:
-    void OnUpdate();
+    public: void OnUpdate();
 
     /// \brief Callback that publishes a received Depth Camera Frame as an
     /// ImageStamped
     /// message.
-    public:
-    virtual void OnNewDepthFrame() const;
+    public: virtual void OnNewDepthFrame();
 
     /// \brief Callback that publishes a received Camera Frame as an
     /// ImageStamped message.
-    public:
-    virtual void OnNewFrame(const rendering::CameraPtr cam,
-                            const transport::PublisherPtr pub) const;
+    public: virtual void OnNewFrame(const rendering::CameraPtr cam,
+                                    const transport::PublisherPtr pub);
 
-    /// \brief Private data pointer.
-    private:
-    std::unique_ptr<RealSensePluginPrivate> dataPtr;
+    /// \brief Pointer to the model containing the plugin.
+    protected: physics::ModelPtr rsModel;
+
+    /// \brief Pointer to the world.
+    protected: physics::WorldPtr world;
+
+    /// \brief Pointer to the Depth Camera Renderer.
+    protected: rendering::DepthCameraPtr depthCam;
+
+    /// \brief Pointer to the Color Camera Renderer.
+    protected: rendering::CameraPtr colorCam;
+
+    /// \brief Pointer to the Infrared Camera Renderer.
+    protected: rendering::CameraPtr ired1Cam;
+
+    /// \brief Pointer to the Infrared2 Camera Renderer.
+    protected: rendering::CameraPtr ired2Cam;
+
+    /// \brief Pointer to the transport Node.
+    protected: transport::NodePtr transportNode;
+
+    // \brief Store Real Sense depth map data.
+    protected: std::vector<uint16_t> depthMap;
+
+    /// \brief Pointer to the Depth Publisher.
+    protected: transport::PublisherPtr depthPub;
+
+    /// \brief Pointer to the Color Publisher.
+    protected: transport::PublisherPtr colorPub;
+
+    /// \brief Pointer to the Infrared Publisher.
+    protected: transport::PublisherPtr ired1Pub;
+
+    /// \brief Pointer to the Infrared2 Publisher.
+    protected: transport::PublisherPtr ired2Pub;
+
+    /// \brief Pointer to the Depth Camera callback connection.
+    protected: event::ConnectionPtr newDepthFrameConn;
+
+    /// \brief Pointer to the Depth Camera callback connection.
+    protected: event::ConnectionPtr newIred1FrameConn;
+
+    /// \brief Pointer to the Infrared Camera callback connection.
+    protected: event::ConnectionPtr newIred2FrameConn;
+
+    /// \brief Pointer to the Color Camera callback connection.
+    protected: event::ConnectionPtr newColorFrameConn;
+
+    /// \brief Pointer to the World Update event connection.
+    protected: event::ConnectionPtr updateConnection;
   };
 }
 #endif
