@@ -9,7 +9,6 @@ find_package(catkin REQUIRED COMPONENTS
     camera_info_manager
     sensor_msgs
     cv_bridge
-    rostest
 )
 find_package(Boost REQUIRED COMPONENTS thread)
 find_package(gazebo REQUIRED)
@@ -38,17 +37,15 @@ add_library(
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 
-add_executable(tests_realsense_plugin test/realsense_plugin.cpp)
-target_link_libraries(
-    tests_realsense_plugin
-    ${catkin_LIBRARIES}
-    ${GTEST_LIBRARIES}
-)
-add_dependencies(tests_realsense_plugin ${catkin_EXPORTED_TARGETS})
-
 install(
     TARGETS
         ${PROJECT_NAME}
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
+
+if(CATKIN_ENABLE_TESTING)
+    find_package(rostest REQUIRED)
+    add_rostest_gtest(tests_realsense_basic test/realsense_basic.test test/realsense_plugin.cpp)
+    target_link_libraries(tests_realsense_basic ${catkin_LIBRARIES})
+endif()

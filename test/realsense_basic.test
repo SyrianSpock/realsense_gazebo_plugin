@@ -8,6 +8,6 @@
 
   <!-- Start test -->
   <test pkg="realsense_gazebo_plugin"
-        type="tests_realsense_plugin"
-        test-name="realsense_plugin_test"/>
+        type="tests_realsense_basic"
+        test-name="tests_realsense_basic"/>
 </launch>
