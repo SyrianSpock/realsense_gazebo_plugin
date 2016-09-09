@@ -1,8 +1,13 @@
 <launch>
+  <!-- Start camera plugin -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find realsense_gazebo_plugin)/worlds/realsense.world"/>
     <arg name="headless" value="true"/>
     <arg name="gui" value="false"/>
-    <arg name="verbose" value="true"/>
   </include>
+
+  <!-- Start test -->
+  <test pkg="realsense_gazebo_plugin"
+        type="tests_realsense_plugin"
+        test-name="realsense_plugin_test"/>
 </launch>
