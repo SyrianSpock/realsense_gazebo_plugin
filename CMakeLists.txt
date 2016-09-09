@@ -46,6 +46,6 @@ install(
 
 if(CATKIN_ENABLE_TESTING)
     find_package(rostest REQUIRED)
-    add_rostest_gtest(tests_realsense_basic test/realsense_basic.test test/realsense_plugin.cpp)
-    target_link_libraries(tests_realsense_basic ${catkin_LIBRARIES})
+    add_rostest_gtest(realsense_plugin_test test/realsense_basic.test test/realsense_plugin.cpp)
+    target_link_libraries(realsense_plugin_test ${catkin_LIBRARIES})
 endif()

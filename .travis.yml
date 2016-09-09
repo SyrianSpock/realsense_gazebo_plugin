@@ -24,4 +24,3 @@ install:
   - wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 script:
   - source .ci_config/travis.sh
-  - source .travis.sh
