@@ -8,7 +8,6 @@ env:
     - USE_DEB=true
       ROS_DISTRO="indigo"
       ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu
-      BEFORE_SCRIPT="sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-latest.list' && wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -"
       ADDITIONAL_DEBS="ros-indigo-image-transport ros-indigo-camera-info-manager ros-indigo-cv-bridge ros-indigo-gazebo7-ros-pkgs"
     - USE_DEB=true
       ROS_DISTRO="jade"
@@ -21,5 +20,7 @@ env:
 
 install:
   - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
+  - sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-latest.list'
+  - wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 script:
   - source .ci_config/travis.sh
