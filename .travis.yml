@@ -12,7 +12,7 @@ env:
     - USE_DEB=true
       ROS_DISTRO="jade"
       ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu
-      ADDITIONAL_DEBS="ros-jade-image-transport ros-jade-camera-info-manager ros-jade-cv-bridge"
+      ADDITIONAL_DEBS="ros-jade-image-transport ros-jade-camera-info-manager ros-jade-cv-bridge ros-jade-gazebo7-ros-pkgs"
     - USE_DEB=true
       ROS_DISTRO="kinetic"
       ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu
