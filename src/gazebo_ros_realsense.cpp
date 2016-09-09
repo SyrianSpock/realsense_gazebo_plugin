@@ -95,7 +95,6 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
     ROS_ERROR("Unsupported Gazebo ImageFormat\n");
     pixel_format = sensor_msgs::image_encodings::BGR8;
   }
-  ROS_INFO_STREAM("Camera" << cam->Name() << "Image format " << cam->ImageFormat());
 
   // copy from simulation image to ROS msg
   fillImage(this->image_msg_,
