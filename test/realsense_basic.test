@@ -1,10 +1,11 @@
 <launch>
-  <!-- Start camera plugin -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find realsense_gazebo_plugin)/worlds/realsense.world"/>
-    <arg name="headless" value="true"/>
-    <arg name="gui" value="false"/>
-  </include>
+  <!-- Start camera plugin in Gazebo server -->
+  <node name="gazebo"
+        pkg="gazebo_ros"
+        type="gzserver"
+        respawn="false"
+        output="screen"
+        args="-r --verbose -e ode $(find realsense_gazebo_plugin)/worlds/realsense.world" />
 
   <!-- Start test -->
   <test pkg="realsense_gazebo_plugin"
