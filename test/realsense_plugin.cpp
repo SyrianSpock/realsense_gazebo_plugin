@@ -13,6 +13,7 @@ constexpr char IR2_TOPIC[]   = "/realsense/camera/ir2/image_raw";
 
 // See sensor_msgs::image_encodings
 constexpr char OPENCV_RGB[]  = "8UC3";
+constexpr char OPENCV_MONO[] = "8UC1";
 
 
 template <const char *topic, const char *opencv_pixel_format>
@@ -110,20 +111,75 @@ public:
 
 using ColorStreamTest = ImageStreamTest<COLOR_TOPIC, OPENCV_RGB>;
 
-
-TEST_F(ColorStreamTest, testColorStream)
+TEST_F(ColorStreamTest, testStream)
 {
   this->WaitForMessage();
   EXPECT_TRUE(this->count > 0);
   EXPECT_TRUE(this->average > 0);
 }
 
-TEST_F(ColorStreamTest, testColorResolution)
+TEST_F(ColorStreamTest, testResolution)
 {
   this->WaitForMessage();
   EXPECT_EQ(640, width_recv);
   EXPECT_EQ(480, height_recv);
 }
+
+TEST_F(ColorStreamTest, testCameraInfo)
+{
+  this->WaitForMessage();
+  EXPECT_EQ("rgb8", encoding_recv);
+  EXPECT_EQ(640 * 3, step_recv);
+}
+
+
+using Ired1StreamTest = ImageStreamTest<IR1_TOPIC, OPENCV_MONO>;
+
+TEST_F(Ired1StreamTest, testStream)
+{
+  this->WaitForMessage();
+  EXPECT_TRUE(this->count > 0);
+  EXPECT_TRUE(this->average > 0);
+}
+
+TEST_F(Ired1StreamTest, testResolution)
+{
+  this->WaitForMessage();
+  EXPECT_EQ(640, width_recv);
+  EXPECT_EQ(480, height_recv);
+}
+
+TEST_F(Ired1StreamTest, testCameraInfo)
+{
+  this->WaitForMessage();
+  EXPECT_EQ("mono8", encoding_recv);
+  EXPECT_EQ(640 * 1, step_recv);
+}
+
+
+using Ired2StreamTest = ImageStreamTest<IR2_TOPIC, OPENCV_MONO>;
+
+TEST_F(Ired2StreamTest, testStream)
+{
+  this->WaitForMessage();
+  EXPECT_TRUE(this->count > 0);
+  EXPECT_TRUE(this->average > 0);
+}
+
+TEST_F(Ired2StreamTest, testResolution)
+{
+  this->WaitForMessage();
+  EXPECT_EQ(640, width_recv);
+  EXPECT_EQ(480, height_recv);
+}
+
+TEST_F(Ired2StreamTest, testCameraInfo)
+{
+  this->WaitForMessage();
+  EXPECT_EQ("mono8", encoding_recv);
+  EXPECT_EQ(640 * 1, step_recv);
+}
+
 
 
 int main(int argc, char **argv)
