@@ -16,7 +16,7 @@ roslaunch realsense_gazebo_plugin realsense.launch
 
 After building the plugin, you can run the unittests
 ```bash
-rostest realsense_gazebo_plugin realsense_basic.test
+rostest realsense_gazebo_plugin realsense_streams.test
 ```
 
 ## Dependencies

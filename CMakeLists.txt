@@ -38,13 +38,13 @@ add_library(
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 
-add_executable(tests_realsense_plugin test/realsense_plugin.cpp)
+add_executable(test_realsense_streams test/realsense_streams_test.cpp)
 target_link_libraries(
-    tests_realsense_plugin
+    test_realsense_streams
     ${catkin_LIBRARIES}
     ${GTEST_LIBRARIES}
 )
-add_dependencies(tests_realsense_plugin ${catkin_EXPORTED_TARGETS})
+add_dependencies(test_realsense_streams ${catkin_EXPORTED_TARGETS})
 
 install(
     TARGETS
