@@ -1,6 +1,11 @@
 #include "realsense_gazebo_plugin/gazebo_ros_realsense.h"
 #include <sensor_msgs/fill_image.h>
 
+namespace
+{
+  sensor_msgs::CameraInfo cameraInfo(const sensor_msgs::Image& image);
+}
+
 namespace gazebo
 {
 // Register the plugin
@@ -39,10 +44,10 @@ void GazeboRosRealsense::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
   this->itnode_ = new image_transport::ImageTransport(*this->rosnode_);
 
-  this->color_pub_ = this->itnode_->advertise("camera/color/image_raw", 2);
-  this->ir1_pub_ = this->itnode_->advertise("camera/ir/image_raw", 2);
-  this->ir2_pub_ = this->itnode_->advertise("camera/ir2/image_raw", 2);
-  this->depth_pub_ = this->itnode_->advertise("camera/depth/image_raw", 2);
+  this->color_pub_ = this->itnode_->advertiseCamera("camera/color/image_raw", 2);
+  this->ir1_pub_ = this->itnode_->advertiseCamera("camera/ir/image_raw", 2);
+  this->ir2_pub_ = this->itnode_->advertiseCamera("camera/ir2/image_raw", 2);
+  this->depth_pub_ = this->itnode_->advertiseCamera("camera/depth/image_raw", 2);
 }
 
 /////////////////////////////////////////////////
@@ -53,7 +58,7 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
 
   // identify camera
   std::string camera_id = cam->Name();
-  image_transport::Publisher* image_pub;
+  image_transport::CameraPublisher* image_pub;
   if (camera_id.find(COLOR_CAMERA_NAME) != std::string::npos)
   {
     camera_id = COLOR_CAMERA_NAME;
@@ -104,8 +109,10 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
     cam->ImageDepth() * cam->ImageWidth(),
     reinterpret_cast<const void*>(cam->ImageData()));
 
+  sensor_msgs::CameraInfo cam_info_msg = cameraInfo(this->image_msg_);
+
   // publish to ROS
-  image_pub->publish(this->image_msg_);
+  image_pub->publish(this->image_msg_, cam_info_msg);
 }
 
 /////////////////////////////////////////////////
@@ -117,12 +124,12 @@ void GazeboRosRealsense::OnNewDepthFrame()
   RealSensePlugin::OnNewDepthFrame();
 
   // copy data into image
-  this->depth_msg_.header.frame_id = DEPTH_CAMERA_NAME;
+  this->depth_msg_.header.frame_id = COLOR_CAMERA_NAME;
   this->depth_msg_.header.stamp.sec = current_time.sec;
   this->depth_msg_.header.stamp.nsec = current_time.nsec;
 
   // set image encoding
-  std::string pixel_format = sensor_msgs::image_encodings::MONO16;
+  std::string pixel_format = sensor_msgs::image_encodings::TYPE_16UC1;
 
   // copy from simulation image to ROS msg
   fillImage(this->depth_msg_,
@@ -131,8 +138,39 @@ void GazeboRosRealsense::OnNewDepthFrame()
     2 * this->depthCam->ImageWidth(),
     reinterpret_cast<const void*>(this->depthMap.data()));
 
+  sensor_msgs::CameraInfo depth_info_msg = cameraInfo(this->depth_msg_);
+
   // publish to ROS
-  this->depth_pub_.publish(this->depth_msg_);
+  this->depth_pub_.publish(this->depth_msg_, depth_info_msg);
 }
 
 }
+
+namespace
+{
+  sensor_msgs::CameraInfo cameraInfo(const sensor_msgs::Image& image)
+  {
+    sensor_msgs::CameraInfo info_msg;
+
+    info_msg.header = image.header;
+    info_msg.height = image.height;
+    info_msg.width = image.width;
+
+    float focal = 463.889;
+
+    info_msg.K[0] = focal;
+    info_msg.K[4] = focal;
+    info_msg.K[2] = info_msg.width * 0.5;
+    info_msg.K[5] = info_msg.height * 0.5;
+    info_msg.K[8] = 1.;
+
+    info_msg.P[0] = info_msg.K[0];
+    info_msg.P[5] = info_msg.K[4];
+    info_msg.P[2] = info_msg.K[2];
+    info_msg.P[6] = info_msg.K[5];
+    info_msg.P[10] = info_msg.K[8];
+
+    return info_msg;
+  }
+}
+
