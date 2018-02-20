@@ -4,6 +4,7 @@
 #include "realsense_gazebo_plugin/RealSensePlugin.h"
 
 #include <ros/ros.h>
+#include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/image_encodings.h>
 
@@ -42,7 +43,7 @@ namespace gazebo
     ///  A node will be instantiated if it does not exist.
     protected: ros::NodeHandle* rosnode_;
     private: image_transport::ImageTransport* itnode_;
-    protected: image_transport::Publisher color_pub_, ir1_pub_, ir2_pub_, depth_pub_;
+    protected: image_transport::CameraPublisher color_pub_, ir1_pub_, ir2_pub_, depth_pub_;
 
     /// \brief ROS image messages
     protected: sensor_msgs::Image image_msg_, depth_msg_;
