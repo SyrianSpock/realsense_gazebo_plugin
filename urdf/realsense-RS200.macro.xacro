@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!--Develped by Daniel Ordonez 22.05.2018 - daniels.ordonez@gmail.com   
-	INFORMATION:
+	INFORMATIONd:
 		This xacro file a URDF representation of the intel real sense RS200 with the 
         virtual links representing the position of:
             * The RGB color camera
@@ -56,6 +56,7 @@
 	<joint name="depth_joint" type="fixed">
     	<parent link="rs200_camera" />
     	<child link="depth" />
+		<origin xyz="0 -0.03 0.004" rpy="0 0 0">
  	</joint>
 
 	<joint name="ired1_joint" type="fixed">
