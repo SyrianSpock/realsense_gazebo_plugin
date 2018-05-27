@@ -30,6 +30,15 @@ roslaunch realsense_gazebo_plugin depth_proc.launch # in terminal 2
 Then open Rviz, and display the `/realsense/camera/depth_registered/points` topic, you should see something like this
 ![Point cloud in Rviz](doc/pointcloud.png)
 
+## Run from URDF
+
+```bash
+roslaunch realsense_gazebo_plugin realsense_urdf.launch
+```
+
+This will behave the same as `realsense.launch` mentioned above, with the difference that it spawns the model from a URDF (see `urdf` folder).
+You can reuse this to plug the sensor in the robot of your choice.
+
 ## Dependencies
 
 This requires Gazebo 6 or higher and catkin tools for building.

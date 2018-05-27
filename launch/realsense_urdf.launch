@@ -1,0 +1,15 @@
+<launch>
+    <param
+        name="robot_description"
+        command="$(find xacro)/xacro '$(find realsense_gazebo_plugin)/urdf/rs200_simulation.xacro'"
+    />
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    </include>
+    <node
+        name="spawn_model"
+        pkg="gazebo_ros"
+        type="spawn_model"
+        args="-urdf -param robot_description -model rs200"
+    />
+    <node name="state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+</launch>
