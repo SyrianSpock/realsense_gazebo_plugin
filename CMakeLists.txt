@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 find_package(Boost REQUIRED COMPONENTS thread)
 find_package(gazebo REQUIRED)
+find_package(Threads REQUIRED)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
@@ -43,6 +44,7 @@ target_link_libraries(
     test_realsense_streams
     ${catkin_LIBRARIES}
     ${GTEST_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
 )
 add_dependencies(test_realsense_streams ${catkin_EXPORTED_TARGETS})
 
