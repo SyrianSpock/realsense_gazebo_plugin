@@ -43,7 +43,7 @@ You can reuse this to plug the sensor in the robot of your choice.
 
 This requires Gazebo 6 or higher and catkin tools for building.
 
-The package has been tested on ROS indigo on Ubuntu 14.04 with Gazebo 7.
+The package has been tested on ROS melodic on Ubuntu 18.04 with Gazebo 9.
 
 ## Acknowledgement
 
