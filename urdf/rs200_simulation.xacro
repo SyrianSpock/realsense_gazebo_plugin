@@ -4,16 +4,12 @@
     This is an example of how to use the realsense-rs200 macro function.
 -->
 <robot name="robot_with_rs200" xmlns:xacro="http://ros.org/wiki/xacro">
+    <link name="world"/>
+
     <!-- Import macro for realsense-RS200 camera-->
     <xacro:include filename="$(find realsense_gazebo_plugin)/urdf/realsense-RS200.macro.xacro"/>
     <!-- Create camera instance -->
-    <xacro:realsense-rs200/>
-    <!-- Gazebo world link required to position the robot with respect to origin-->
-    <link name="world"/>
-    <!-- Place camera referenced to world frame-->
-    <joint name="realsense_joint" type="fixed">
-        <parent link="world"/>
-        <child link="rs200_camera"/>
-        <origin rpy="0 0 0" xyz="0 0 1.0"/>
-    </joint>
+    <xacro:realsense-rs200 prefix="" parent="world">
+        <origin xyz="0 0 1.0" rpy="0 0 0" />   
+    </xacro:realsense-rs200>
 </robot>
