@@ -1,5 +1,11 @@
 # Intel RealSense Gazebo ROS plugin and model
 
+## _**Important note**_
+
+**This branch only supports ROS Melodic with Gazebo 9.**
+
+**To use this plugin with ROS Kinetic and Gazebo 7 you should use the [`kinetic-devel` branch](https://github.com/SyrianSpock/realsense_gazebo_plugin/tree/kinetic-devel).**
+
 ## Quickstart
 
 Build the plugin
