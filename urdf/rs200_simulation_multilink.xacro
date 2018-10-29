@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--Develped by Maik93 on 29.10.2018
+  INFORMATION:
+    This is an example of how to use the realsense-rs200 macro function attached to other links.
+-->
+<robot name="robot_with_rs200" xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- Import macro for realsense-RS200 camera-->
+    <xacro:include filename="$(find realsense_gazebo_plugin)/urdf/realsense-RS200.macro.xacro"/>
+    
+    <!-- Gazebo world link required to position the robot with respect to origin -->
+    <link name="world"/>
+
+    <!-- main body of the robot -->
+    <link name="box">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </visual>
+        <collision name="box_collision">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- Create camera instance. To define correctly camera positions for Gazebo plugin:
+            - give the parent link name
+            - add origin_x, origin_y and origin_z according to joint's origin "realsense_joint" -->
+    <xacro:realsense-rs200 parent_link="box" origin_z="0.2"/>
+
+    <!-- world link is only a reference for your odometry -->
+    <joint name="world_joint" type="floating">
+        <parent link="world"/>
+        <child link="box"/>
+    </joint>
+
+    <!-- Place camera rigidly connected to box frame -->
+    <joint name="realsense_joint" type="fixed">
+        <parent link="box"/>
+        <child link="rs200_camera"/>
+        <origin rpy="0 0 0" xyz="0 0 0.2"/>
+    </joint>
+</robot>

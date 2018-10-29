@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!--Develped by Daniel Ordonez 22.05.2018 - daniels.ordonez@gmail.com
-    INFORMATIONd:
+    INFORMATION:
         This xacro file a URDF representation of the intel real sense RS200 with the
         virtual links representing the position of:
             * The RGB color camera
@@ -8,9 +8,13 @@
             * Infrared 2 camera
             * Virtual depth coordinate frame
         Configured to work with Gazebo if desired.
+
+    Update of Maik93: in order to handle camera positions while attaching the Realsense to other links,
+    optional parameters "parent_link, origin_x, origin_y, origin_z" are implemented.
+    See urdf/rs200_simulation_multilink.xacro for details.
 -->
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-<xacro:macro name="realsense-rs200">
+<xacro:macro name="realsense-rs200" params="parent_link:='rs200_camera' origin_x:=0 origin_y:=0 origin_z:=0">
 
     <!-- Camera link -->
     <link name="rs200_camera">
@@ -49,7 +53,7 @@
         <parent link="rs200_camera" />
         <child link="color" />
         <!-- <origin xyz="0 -0.046 0.004" rpy="0 0 0"/> -->
-        <!-- The default position is change since in Rviz the cloud depth axis is Z not X-->
+        <!-- The default position is changed since in Rviz the cloud depth axis is Z not X-->
         <origin xyz="0 -0.046 0.004" rpy="${pi/2} ${pi} ${pi/2}"/>
     </joint>
 
@@ -81,7 +85,7 @@
     </gazebo>
 
     <!-- Load parameters to model's main link-->
-    <gazebo reference="rs200_camera">
+    <gazebo reference="${parent_link}">
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
@@ -97,7 +101,7 @@
         <min_depth>0</min_depth>-->
 
         <sensor name="color" type="camera">
-            <pose frame="">0 -0.046 0.004 0 0 0</pose>
+            <pose frame="">${origin_x + 0} ${origin_y - 0.046} ${origin_z + 0.004} 0 0 0</pose>
             <camera name="__default__">
             <horizontal_fov>1.047</horizontal_fov>
             <image>
@@ -120,7 +124,7 @@
             <visualize>1</visualize>
         </sensor>
         <sensor name="ired1" type="camera">
-            <pose frame="">0 -0.06 0.004 0 0 0</pose>
+            <pose frame="">${origin_x + 0} ${origin_y - 0.06} ${origin_z + 0.004} 0 0 0</pose>
             <camera name="__default__">
             <horizontal_fov>1.047</horizontal_fov>
             <image>
@@ -143,7 +147,7 @@
             <visualize>0</visualize>
         </sensor>
         <sensor name="ired2" type="camera">
-            <pose frame="">0 0.01 0.004 0 0 0</pose>
+            <pose frame="">${origin_x + 0} ${origin_y + 0.01} ${origin_z + 0.004} 0 0 0</pose>
             <camera name="__default__">
             <horizontal_fov>1.047</horizontal_fov>
             <image>
@@ -166,7 +170,7 @@
             <visualize>0</visualize>
         </sensor>
         <sensor name="depth" type="depth">
-            <pose frame="">0 -0.03 0.004 0 0 0</pose>
+            <pose frame="">${origin_x + 0} ${origin_y - 0.03} ${origin_z + 0.004} 0 0 0</pose>
             <camera name="__default__">
             <horizontal_fov>1.047</horizontal_fov>
             <image>

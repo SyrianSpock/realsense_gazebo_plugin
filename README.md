@@ -36,8 +36,16 @@ Then open Rviz, and display the `/realsense/camera/depth_registered/points` topi
 roslaunch realsense_gazebo_plugin realsense_urdf.launch
 ```
 
-This will behave the same as `realsense.launch` mentioned above, with the difference that it spawns the model from a URDF (see `urdf` folder).
+This will behave the same as `realsense.launch` mentioned above, with the difference that it spawns the model from a URDF (`urdf/rs200_simulation.xacro`).
 You can reuse this to plug the sensor in the robot of your choice.
+
+### Multi-link URDF
+
+```bash
+roslaunch realsense_gazebo_plugin realsense_urdf_multilink.launch
+```
+
+Here is an example of how to attach the Realsense to other links; the URDF used here is (`urdf/rs200_simulation_multilink.xacro`).
 
 ## Dependencies
 
