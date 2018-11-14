@@ -4,7 +4,7 @@
 namespace
 {
   std::string extractCameraName(const std::string& name);
-  sensor_msgs::CameraInfo cameraInfo(const sensor_msgs::Image& image);
+  sensor_msgs::CameraInfo cameraInfo(const sensor_msgs::Image& image, float horizontal_fov);
 }
 
 namespace gazebo
@@ -81,9 +81,15 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
     cam->ImageDepth() * cam->ImageWidth(),
     reinterpret_cast<const void*>(cam->ImageData()));
 
-  auto camera_info_msg = cameraInfo(this->image_msg_);
+  // identify camera rendering
+  const std::map<std::string, rendering::CameraPtr> cameras = {
+    {COLOR_CAMERA_NAME, this->colorCam},
+    {IRED1_CAMERA_NAME, this->ired1Cam},
+    {IRED2_CAMERA_NAME, this->ired2Cam},
+  };
 
   // publish to ROS
+  auto camera_info_msg = cameraInfo(this->image_msg_, cameras.at(camera_id)->HFOV().Radian());
   image_pub->publish(this->image_msg_, camera_info_msg);
 }
 
@@ -109,9 +115,8 @@ void GazeboRosRealsense::OnNewDepthFrame()
     2 * this->depthCam->ImageWidth(),
     reinterpret_cast<const void*>(this->depthMap.data()));
 
-  sensor_msgs::CameraInfo depth_info_msg = cameraInfo(this->depth_msg_);
-
   // publish to ROS
+  auto depth_info_msg = cameraInfo(this->depth_msg_, this->depthCam->HFOV().Radian());
   this->depth_pub_.publish(this->depth_msg_, depth_info_msg);
 }
 
@@ -129,7 +134,7 @@ namespace
     return COLOR_CAMERA_NAME;
   }
 
-  sensor_msgs::CameraInfo cameraInfo(const sensor_msgs::Image& image)
+  sensor_msgs::CameraInfo cameraInfo(const sensor_msgs::Image& image, float horizontal_fov)
   {
     sensor_msgs::CameraInfo info_msg;
 
@@ -137,7 +142,7 @@ namespace
     info_msg.height = image.height;
     info_msg.width = image.width;
 
-    float focal = 463.889;
+    float focal = 0.5 * image.width / tan(0.5 * horizontal_fov);
 
     info_msg.K[0] = focal;
     info_msg.K[4] = focal;
