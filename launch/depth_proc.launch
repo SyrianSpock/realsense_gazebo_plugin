@@ -22,6 +22,4 @@
     <remap from="depth_registered/image_rect" to="$(arg depReg_imgrect)"/>
     <remap from="depth_registered/points" to="$(arg out_cloud)"/>
   </node>
-
-  <node pkg="tf" type="static_transform_publisher" name="fake_tf" args="0 0 0 0 0 -1.57 origin color 10"/>
 </launch>
