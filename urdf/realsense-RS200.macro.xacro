@@ -83,7 +83,7 @@
 
     <!-- Load plugin to the model ("robot" in urdf format)-->
     <gazebo>
-        <plugin name="realsense_plugin" filename="librealsense_gazebo_plugin.so"/>
+        <plugin name="${prefix}r200" filename="librealsense_gazebo_plugin.so"/>
         <!--<pose frame="">0 0 0.015 0 0 0</pose>-->
     </gazebo>
 
