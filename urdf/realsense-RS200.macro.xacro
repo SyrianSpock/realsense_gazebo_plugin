@@ -108,8 +108,8 @@
             <camera name="${prefix}rs200_camera">
             <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
             <image>
-                <width>640</width>
-                <height>480</height>
+                <width>1920</width>
+                <height>1080</height>
                 <format>RGB_INT8</format>
             </image>
             <clip>
@@ -131,8 +131,8 @@
             <camera name="${prefix}rs200_camera">
             <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
             <image>
-                <width>640</width>
-                <height>480</height>
+                <width>1920</width>
+                <height>1080</height>
                 <format>L_INT8</format>
             </image>
             <clip>
@@ -154,8 +154,8 @@
             <camera name="${prefix}rs200_camera">
             <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
             <image>
-                <width>640</width>
-                <height>480</height>
+                <width>1920</width>
+                <height>1080</height>
                 <format>L_INT8</format>
             </image>
             <clip>
@@ -177,8 +177,8 @@
             <camera name="${prefix}rs200_camera">
             <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
             <image>
-                    <width>640</width>
-                    <height>480</height>
+                <width>1920</width>
+                <height>1080</height>
             </image>
             <clip>
                     <near>0.1</near>
