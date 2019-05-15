@@ -106,7 +106,7 @@
         <sensor name="${prefix}rs200_color" type="camera">
             <pose frame="">0 -0.046 0.004 0 0 0</pose>
             <camera name="${prefix}rs200_camera">
-            <horizontal_fov>1.047</horizontal_fov>
+            <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
             <image>
                 <width>640</width>
                 <height>480</height>
@@ -129,7 +129,7 @@
         <sensor name="${prefix}rs200_ired1" type="camera">
             <pose frame="">0 -0.06 0.004 0 0 0</pose>
             <camera name="${prefix}rs200_camera">
-            <horizontal_fov>1.047</horizontal_fov>
+            <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
             <image>
                 <width>640</width>
                 <height>480</height>
@@ -152,7 +152,7 @@
         <sensor name="${prefix}rs200_ired2" type="camera">
             <pose frame="">0 0.01 0.004 0 0 0</pose>
             <camera name="${prefix}rs200_camera">
-            <horizontal_fov>1.047</horizontal_fov>
+            <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
             <image>
                 <width>640</width>
                 <height>480</height>
@@ -175,7 +175,7 @@
         <sensor name="${prefix}rs200_depth" type="depth">
             <pose frame="">0 -0.03 0.004 0 0 0</pose>
             <camera name="${prefix}rs200_camera">
-            <horizontal_fov>1.047</horizontal_fov>
+            <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
             <image>
                     <width>640</width>
                     <height>480</height>
