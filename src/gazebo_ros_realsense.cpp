@@ -1,6 +1,8 @@
 #include "realsense_gazebo_plugin/gazebo_ros_realsense.h"
 #include <sensor_msgs/fill_image.h>
 
+
+
 namespace
 {
   std::string extractCameraName(const std::string& name);
@@ -32,7 +34,8 @@ void GazeboRosRealsense::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   }
   ROS_INFO("Realsense Gazebo ROS plugin loading.");
 
-  RealSensePlugin::Load(_model, _sdf, this->GetHandle());
+  prefix = this->GetHandle()+"_";
+  RealSensePlugin::Load(_model, _sdf, prefix);
 
   this->rosnode_ = new ros::NodeHandle(this->GetHandle());
 
@@ -63,7 +66,7 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
   const auto image_pub = camera_publishers.at(camera_id);
 
   // copy data into image
-  this->image_msg_.header.frame_id = camera_id;
+  this->image_msg_.header.frame_id = prefix+camera_id;
   this->image_msg_.header.stamp.sec = current_time.sec;
   this->image_msg_.header.stamp.nsec = current_time.nsec;
 
@@ -101,7 +104,7 @@ void GazeboRosRealsense::OnNewDepthFrame()
   RealSensePlugin::OnNewDepthFrame();
 
   // copy data into image
-  this->depth_msg_.header.frame_id = COLOR_CAMERA_NAME;
+  this->depth_msg_.header.frame_id = prefix+COLOR_CAMERA_NAME;
   this->depth_msg_.header.stamp.sec = current_time.sec;
   this->depth_msg_.header.stamp.nsec = current_time.nsec;
 
