@@ -120,7 +120,11 @@ void RealSensePlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
   // Setup Transport Node
   this->transportNode = transport::NodePtr(new transport::Node());
+#if GAZEBO_MAJOR_VERSION >= 9
   this->transportNode->Init(this->world->Name());
+#else
+  this->transportNode->Init(this->world->GetName());
+#endif
 
   // Setup Publishers
   std::string rsTopicRoot =
@@ -166,7 +170,11 @@ void RealSensePlugin::OnNewFrame(const rendering::CameraPtr cam,
   msgs::ImageStamped msg;
 
   // Set Simulation Time
+#if GAZEBO_MAJOR_VERSION >= 9
   msgs::Set(msg.mutable_time(), this->world->SimTime());
+#else
+  msgs::Set(msg.mutable_time(), this->world->GetSimTime());
+#endif
 
   // Set Image Dimensions
   msg.mutable_image()->set_width(cam->ImageWidth());
@@ -215,7 +223,11 @@ void RealSensePlugin::OnNewDepthFrame()
   }
 
   // Pack realsense scaled depth map
+#if GAZEBO_MAJOR_VERSION >= 9
   msgs::Set(msg.mutable_time(), this->world->SimTime());
+#else
+  msgs::Set(msg.mutable_time(), this->world->GetSimTime());
+#endif
   msg.mutable_image()->set_width(this->depthCam->ImageWidth());
   msg.mutable_image()->set_height(this->depthCam->ImageHeight());
   msg.mutable_image()->set_pixel_format(common::Image::L_INT16);
