@@ -51,7 +51,11 @@ void GazeboRosRealsense::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
                                     const transport::PublisherPtr pub)
 {
+#if GAZEBO_MAJOR_VERSION >= 9
   common::Time current_time = this->world->SimTime();
+#else
+  common::Time current_time = this->world->GetSimTime();
+#endif
 
   // identify camera
   std::string camera_id = extractCameraName(cam->Name());
@@ -96,7 +100,11 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
 void GazeboRosRealsense::OnNewDepthFrame()
 {
   // get current time
+#if GAZEBO_MAJOR_VERSION >= 9
   common::Time current_time = this->world->SimTime();
+#else
+  common::Time current_time = this->world->GetSimTime();
+#endif
 
   RealSensePlugin::OnNewDepthFrame();
 
