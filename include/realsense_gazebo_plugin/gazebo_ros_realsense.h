@@ -42,6 +42,7 @@ namespace gazebo
     /// \brief A pointer to the ROS node.
     ///  A node will be instantiated if it does not exist.
     protected: ros::NodeHandle* rosnode_;
+    public: std::string prefix;
     private: image_transport::ImageTransport* itnode_;
     protected: image_transport::CameraPublisher color_pub_, ir1_pub_, ir2_pub_, depth_pub_;
 

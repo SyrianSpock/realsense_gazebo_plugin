@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<launch>    
+ 
+  <!-- q= has the rpy set in the chessboard_cameras_cell.urdf.xacro file as rpy=0 1.061379 1.570791-->
+  <!-- q3=q*roty(pi/2)*rotz(-pi/2) rotations needed between the sensor frame and the optical camera frame - they should be included in the model but are not...-->
+    <!-- MATLAB> q=UnitQuaternion.rpy([0 , 1.061379 , 1.570791])-->
+    <!-- MATLAB> q3=q*UnitQuaternion(roty(pi/2))*UnitQuaternion(rotz(-pi/2)) -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="camera_left_broadcaster" args="-0.06 -0.29 0.410304  0.0 0.0000 -2.632175326794897 /world /left_rs200_color" /> 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="camera_right_broadcaster" args="0.06 0.29 0.410304  0 3.1416 0.5236  /world /right_rs200_color" /> 
+
+  <arg name="rviz"  default="true"/>
+  <!-- marker detector -->
+  <!-- aruco_ros node is used to detect markers -->
+  <!-- ros wiki page: http://wiki.ros.org/aruco_ros -->
+  <!-- external page: http://www.uco.es/investiga/grupos/ava/node/26 -->  
+ 
+  
+  
+  <!-- Show in Rviz   -->   
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find realsense_gazebo_plugin)/launch/two_realsense_chessboard.rviz"/> 
+</launch>

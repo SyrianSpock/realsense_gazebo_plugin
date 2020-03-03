@@ -50,7 +50,7 @@ RealSensePlugin::~RealSensePlugin()
 }
 
 /////////////////////////////////////////////////
-void RealSensePlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
+void RealSensePlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf, std::string prefix)
 {
   // Output the name of the model
   std::cout << std::endl
@@ -69,15 +69,15 @@ void RealSensePlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   // Get Cameras Renderers
   this->depthCam =
       std::dynamic_pointer_cast<sensors::DepthCameraSensor>(
-          smanager->GetSensor(DEPTH_CAMERA_NAME))->DepthCamera();
+          smanager->GetSensor(prefix+DEPTH_CAMERA_NAME))->DepthCamera();
   this->ired1Cam = std::dynamic_pointer_cast<sensors::CameraSensor>(
-                                smanager->GetSensor(IRED1_CAMERA_NAME))
+                                smanager->GetSensor(prefix+IRED1_CAMERA_NAME))
                                 ->Camera();
   this->ired2Cam = std::dynamic_pointer_cast<sensors::CameraSensor>(
-                                smanager->GetSensor(IRED2_CAMERA_NAME))
+                                smanager->GetSensor(prefix+IRED2_CAMERA_NAME))
                                 ->Camera();
   this->colorCam = std::dynamic_pointer_cast<sensors::CameraSensor>(
-                                smanager->GetSensor(COLOR_CAMERA_NAME))
+                                smanager->GetSensor(prefix+COLOR_CAMERA_NAME))
                                 ->Camera();
 
   // Check if camera renderers have been found successfuly

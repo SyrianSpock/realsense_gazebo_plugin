@@ -83,7 +83,7 @@
 
     <!-- Load plugin to the model ("robot" in urdf format)-->
     <gazebo>
-        <plugin name="${prefix}r200" filename="librealsense_gazebo_plugin.so"/>
+        <plugin name="${prefix}rs200" filename="librealsense_gazebo_plugin.so"/>
         <!--<pose frame="">0 0 0.015 0 0 0</pose>-->
     </gazebo>
 
@@ -103,13 +103,14 @@
         <!--<max_vel>0.01</max_vel>
         <min_depth>0</min_depth>-->
 
-        <sensor name="color" type="camera">
+        <sensor name="${prefix}rs200_color" type="camera">
             <pose frame="">0 -0.046 0.004 0 0 0</pose>
             <camera name="${prefix}rs200_camera">
-            <horizontal_fov>1.047</horizontal_fov>
+            <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
+            <aspect_ratio>1.777777778</aspect_ratio><!-- 16:9-->
             <image>
-                <width>640</width>
-                <height>480</height>
+                <width>1920</width>
+                <height>1080</height>
                 <format>RGB_INT8</format>
             </image>
             <clip>
@@ -126,13 +127,14 @@
             <update_rate>60</update_rate>
             <visualize>1</visualize>
         </sensor>
-        <sensor name="ired1" type="camera">
+        <sensor name="${prefix}rs200_ired1" type="camera">
             <pose frame="">0 -0.06 0.004 0 0 0</pose>
             <camera name="${prefix}rs200_camera">
-            <horizontal_fov>1.047</horizontal_fov>
+            <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
+            <aspect_ratio>1.777777778</aspect_ratio><!-- 16:9-->
             <image>
-                <width>640</width>
-                <height>480</height>
+                <width>1920</width>
+                <height>1080</height>
                 <format>L_INT8</format>
             </image>
             <clip>
@@ -149,13 +151,14 @@
             <update_rate>60</update_rate>
             <visualize>0</visualize>
         </sensor>
-        <sensor name="ired2" type="camera">
+        <sensor name="${prefix}rs200_ired2" type="camera">
             <pose frame="">0 0.01 0.004 0 0 0</pose>
             <camera name="${prefix}rs200_camera">
-            <horizontal_fov>1.047</horizontal_fov>
+            <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
+            <aspect_ratio>1.777777778</aspect_ratio><!-- 16:9-->
             <image>
-                <width>640</width>
-                <height>480</height>
+                <width>1920</width>
+                <height>1080</height>
                 <format>L_INT8</format>
             </image>
             <clip>
@@ -172,13 +175,14 @@
             <update_rate>60</update_rate>
             <visualize>0</visualize>
         </sensor>
-        <sensor name="depth" type="depth">
+        <sensor name="${prefix}rs200_depth" type="depth">
             <pose frame="">0 -0.03 0.004 0 0 0</pose>
             <camera name="${prefix}rs200_camera">
-            <horizontal_fov>1.047</horizontal_fov>
+            <horizontal_fov>1.211258501</horizontal_fov><!--69.4 deg = 1.211258501 rad -->
+            <aspect_ratio>1.777777778</aspect_ratio><!-- 16:9-->
             <image>
-                    <width>640</width>
-                    <height>480</height>
+                <width>1920</width>
+                <height>1080</height>
             </image>
             <clip>
                     <near>0.1</near>

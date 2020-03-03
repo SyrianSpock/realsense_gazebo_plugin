@@ -46,7 +46,7 @@ namespace gazebo
     public: ~RealSensePlugin();
 
     // Documentation Inherited.
-    public: virtual void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf);
+    public: virtual void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf, std::string prefix="");
 
     /// \brief Callback for the World Update event.
     public: void OnUpdate();
