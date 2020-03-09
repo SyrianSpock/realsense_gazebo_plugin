@@ -1,5 +1,7 @@
 # Intel RealSense Gazebo ROS plugin and model
 
+Simulattion of the Realsense R200 sensor in Gazebo.
+
 ## Quickstart
 
 Build the plugin
