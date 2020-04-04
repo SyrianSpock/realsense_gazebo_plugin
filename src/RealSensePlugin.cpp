@@ -66,18 +66,23 @@ void RealSensePlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   // Sensors Manager
   sensors::SensorManager *smanager = sensors::SensorManager::Instance();
 
-  // Get Cameras Renderers
+  std::vector<std::string> DEPTH_CAMERA_FULL_NAME = this->rsModel->SensorScopedName(DEPTH_CAMERA_NAME);
+  std::vector<std::string> IRED1_CAMERA_FULL_NAME = this->rsModel->SensorScopedName(IRED1_CAMERA_NAME);
+  std::vector<std::string> IRED2_CAMERA_FULL_NAME = this->rsModel->SensorScopedName(IRED2_CAMERA_NAME);
+  std::vector<std::string> COLOR_CAMERA_FULL_NAME = this->rsModel->SensorScopedName(COLOR_CAMERA_NAME);
+
+    // Get Cameras Renderers
   this->depthCam =
       std::dynamic_pointer_cast<sensors::DepthCameraSensor>(
-          smanager->GetSensor(DEPTH_CAMERA_NAME))->DepthCamera();
+          smanager->GetSensor(DEPTH_CAMERA_FULL_NAME.front()))->DepthCamera();
   this->ired1Cam = std::dynamic_pointer_cast<sensors::CameraSensor>(
-                                smanager->GetSensor(IRED1_CAMERA_NAME))
+                                smanager->GetSensor(IRED1_CAMERA_FULL_NAME.front()))
                                 ->Camera();
   this->ired2Cam = std::dynamic_pointer_cast<sensors::CameraSensor>(
-                                smanager->GetSensor(IRED2_CAMERA_NAME))
+                                smanager->GetSensor(IRED2_CAMERA_FULL_NAME.front()))
                                 ->Camera();
   this->colorCam = std::dynamic_pointer_cast<sensors::CameraSensor>(
-                                smanager->GetSensor(COLOR_CAMERA_NAME))
+                                smanager->GetSensor(COLOR_CAMERA_FULL_NAME.front()))
                                 ->Camera();
 
   // Check if camera renderers have been found successfuly
@@ -129,11 +134,11 @@ void RealSensePlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   this->depthPub = this->transportNode->Advertise<msgs::ImageStamped>(
           rsTopicRoot + DEPTH_CAMERA_TOPIC, 1, DEPTH_PUB_FREQ_HZ);
   this->ired1Pub = this->transportNode->Advertise<msgs::ImageStamped>(
-          rsTopicRoot + IRED1_CAMERA_TOPIC, 1, DEPTH_PUB_FREQ_HZ);
+          rsTopicRoot + IRED1_CAMERA_TOPIC, 1, IRED1_PUB_FREQ_HZ);
   this->ired2Pub = this->transportNode->Advertise<msgs::ImageStamped>(
-          rsTopicRoot + IRED2_CAMERA_TOPIC, 1, DEPTH_PUB_FREQ_HZ);
+          rsTopicRoot + IRED2_CAMERA_TOPIC, 1, IRED2_PUB_FREQ_HZ);
   this->colorPub = this->transportNode->Advertise<msgs::ImageStamped>(
-          rsTopicRoot + COLOR_CAMERA_TOPIC, 1, DEPTH_PUB_FREQ_HZ);
+          rsTopicRoot + COLOR_CAMERA_TOPIC, 1, COLOR_PUB_FREQ_HZ);
 
   // Listen to depth camera new frame event
   this->newDepthFrameConn = this->depthCam->ConnectNewDepthFrame(
