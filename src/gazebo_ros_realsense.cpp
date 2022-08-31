@@ -1,5 +1,6 @@
 #include "realsense_gazebo_plugin/gazebo_ros_realsense.h"
 #include <sensor_msgs/fill_image.h>
+#include <sensor_msgs/distortion_models.h>
 
 namespace
 {
@@ -164,6 +165,9 @@ namespace
     info_msg.P[6] = info_msg.K[5];
     info_msg.P[10] = info_msg.K[8];
 
+    info_msg.distortion_model = sensor_msgs::distortion_models::PLUMB_BOB;
+    info_msg.D.resize(5);
+    
     return info_msg;
   }
 }
